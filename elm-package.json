@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Touch event functions to help handle touch events",
-    "repository": "https://github.com/knledg/touch-events",
+    "repository": "https://github.com/knledg/touch-events.git",
     "license": "BSD3",
     "source-directories": [
         "src",
