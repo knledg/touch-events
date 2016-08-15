@@ -2,6 +2,10 @@
 
 Library to help handle touch events
 
+## Documenation
+
+[Package](http://package.elm-lang.org/packages/knledg/touch-events/latest)
+
 ## Run Example
 
 `elm-make examples/SwipeExmaple.elm && open index.html`
