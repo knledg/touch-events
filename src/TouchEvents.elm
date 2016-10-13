@@ -1,7 +1,7 @@
 module TouchEvents exposing
   ( TouchEvent(..), Direction(..), Touch
   , emptyTouch, getDirectionX
-  , onTouchEvent, onTouchEnd, onTouchStart
+  , onTouchEvent, onTouchEnd, onTouchStart, onTouchMove
   )
 
 {-| The is a library to provide touch event helpers
@@ -13,7 +13,7 @@ module TouchEvents exposing
 @docs emptyTouch, getDirectionX
 
 # Event Handlers
-@docs onTouchEvent, onTouchEnd, onTouchStart
+@docs onTouchEvent, onTouchEnd, onTouchStart, onTouchMove
 
 -}
 
@@ -140,3 +140,9 @@ touchDecoder =
   JD.object2 Touch
     ("clientX" := JD.float)
     ("clientY" := JD.float)
+
+{-| Lower level "touchmove" event handler
+-}
+onTouchMove : (Touch -> msg) -> Attribute msg
+onTouchMove msg =
+  on "touchmove" <| eventDecoder msg "touches"
