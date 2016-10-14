@@ -1,8 +1,15 @@
-module TouchEvents exposing
-  ( TouchEvent(..), Direction(..), Touch
-  , emptyTouch, getDirectionX
-  , onTouchEvent, onTouchEnd, onTouchStart, onTouchMove
-  )
+module TouchEvents
+    exposing
+        ( TouchEvent(..)
+        , Direction(..)
+        , Touch
+        , emptyTouch
+        , getDirectionX
+        , onTouchEvent
+        , onTouchEnd
+        , onTouchStart
+        , onTouchMove
+        )
 
 {-| The is a library to provide touch event helpers
 
@@ -21,47 +28,49 @@ import Json.Decode as JD exposing ((:=))
 import Html exposing (Attribute)
 import Html.Events exposing (on)
 
+
 {-| Supported touch event types
 -}
 type TouchEvent
-  = TouchStart
-  | TouchEnd
-  | TouchMove
+    = TouchStart
+    | TouchEnd
+    | TouchMove
 
 
 {-| Supported touch directions
 -}
 type Direction
-  = Left
-  | Right
-  | Up
-  | Down
+    = Left
+    | Right
+    | Up
+    | Down
+
 
 {-| Type alias for the touch record on the touch event object
 -}
 type alias Touch =
-  { clientX : Float
-  , clientY : Float
-  }
+    { clientX : Float
+    , clientY : Float
+    }
 
 
 {-| Returns a `Touch` record with 0 as default values
 -}
 emptyTouch : Touch
 emptyTouch =
-  { clientX = 0
-  , clientY = 0
-  }
+    { clientX = 0
+    , clientY = 0
+    }
 
 
 {-| Gets the direction of the swipe on the x axis (`Left` or `Right`)
 -}
 getDirectionX : Float -> Float -> Direction
 getDirectionX start end =
-  if start > end then
-    Left
-  else
-    Right
+    if start > end then
+        Left
+    else
+        Right
 
 
 {-| Higher level touch event handler
@@ -82,10 +91,15 @@ view model =
 -}
 onTouchEvent : TouchEvent -> (Touch -> msg) -> Attribute msg
 onTouchEvent eventType msg =
-  case eventType of
-    TouchStart -> onTouchStart msg
-    TouchEnd -> onTouchEnd msg
-    TouchMove -> onTouchMove msg
+    case eventType of
+        TouchStart ->
+            onTouchStart msg
+
+        TouchEnd ->
+            onTouchEnd msg
+
+        TouchMove ->
+            onTouchMove msg
 
 
 {-| Lower level "touchend" event handler
@@ -106,7 +120,7 @@ view model =
 -}
 onTouchEnd : (Touch -> msg) -> Attribute msg
 onTouchEnd msg =
-  on "touchend" <| eventDecoder msg "changedTouches"
+    on "touchend" <| eventDecoder msg "changedTouches"
 
 
 {-| Lower level "touchstart" event handler
@@ -127,24 +141,27 @@ view model =
 -}
 onTouchStart : (Touch -> msg) -> Attribute msg
 onTouchStart msg =
-  on "touchstart" <| eventDecoder msg "touches"
+    on "touchstart" <| eventDecoder msg "touches"
+
 
 {-| event decoder
 -}
 eventDecoder : (Touch -> msg) -> String -> JD.Decoder msg
 eventDecoder msg eventKey =
-  JD.at [ eventKey, "0" ] (JD.map msg touchDecoder)
+    JD.at [ eventKey, "0" ] (JD.map msg touchDecoder)
+
 
 {-| touch decoder
 -}
 touchDecoder : JD.Decoder Touch
 touchDecoder =
-  JD.object2 Touch
-    ("clientX" := JD.float)
-    ("clientY" := JD.float)
+    JD.object2 Touch
+        ("clientX" := JD.float)
+        ("clientY" := JD.float)
+
 
 {-| Lower level "touchmove" event handler
 -}
 onTouchMove : (Touch -> msg) -> Attribute msg
 onTouchMove msg =
-  on "touchmove" <| eventDecoder msg "touches"
+    on "touchmove" <| eventDecoder msg "touches"
