@@ -26,6 +26,7 @@ import Html.Events exposing (on)
 type TouchEvent
   = TouchStart
   | TouchEnd
+  | TouchMove
 
 
 {-| Supported touch directions
@@ -84,6 +85,7 @@ onTouchEvent eventType msg =
   case eventType of
     TouchStart -> onTouchStart msg
     TouchEnd -> onTouchEnd msg
+    TouchMove -> onTouchMove msg
 
 
 {-| Lower level "touchend" event handler
