@@ -13,7 +13,9 @@ touchEventsTests : ET.Test
 touchEventsTests =
     ET.suite "Touch Event Test Suite"
         [ getDirectionXRightTest
-        , getDirectionXLestTest
+        , getDirectionXLeftTest
+        , getDirectionYUpTest
+        , getDirectionYDownTest
         , emptyTouchText
         ]
 
@@ -24,10 +26,22 @@ getDirectionXRightTest =
         (ET.assert (TE.getDirectionX 12.12 13.2 == TE.Right))
 
 
-getDirectionXLestTest =
+getDirectionXLeftTest =
     ET.test
-        "detects the touch in the Left driection"
+        "detects the touch in the Left direction"
         (ET.assert (TE.getDirectionX 13.2 12.12 == TE.Left))
+
+
+getDirectionYUpTest =
+    ET.test
+        "detects the touch in the Up direction"
+        (ET.assert (TE.getDirectionY 13.2 12.12 == TE.Up))
+
+
+getDirectionYDownTest =
+    ET.test
+        "detects the touch in the Down direction"
+        (ET.assert (TE.getDirectionY 12.12 13.2 == TE.Down))
 
 
 emptyTouchText =
