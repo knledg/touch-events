@@ -5,6 +5,7 @@ module TouchEvents
         , Touch
         , emptyTouch
         , getDirectionX
+        , getDirectionY
         , onTouchEvent
         , onTouchEnd
         , onTouchStart
@@ -17,7 +18,7 @@ module TouchEvents
 @docs TouchEvent, Direction, Touch
 
 # Helpers
-@docs emptyTouch, getDirectionX
+@docs emptyTouch, getDirectionX, getDirectionY
 
 # Event Handlers
 @docs onTouchEvent, onTouchEnd, onTouchStart, onTouchMove
@@ -71,6 +72,16 @@ getDirectionX start end =
         Left
     else
         Right
+
+
+{-| Gets the direction of the swipe on the y axis (`Up` or `Down`)
+-}
+getDirectionY : Float -> Float -> Direction
+getDirectionY start end =
+    if start > end then
+        Up
+    else
+        Down
 
 
 {-| Higher level touch event handler
