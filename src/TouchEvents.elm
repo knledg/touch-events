@@ -25,7 +25,7 @@ module TouchEvents
 
 -}
 
-import Json.Decode as JD exposing ((:=))
+import Json.Decode as JD exposing (field, map2, float)
 import Html exposing (Attribute)
 import Html.Events exposing (on)
 
@@ -166,9 +166,9 @@ eventDecoder msg eventKey =
 -}
 touchDecoder : JD.Decoder Touch
 touchDecoder =
-    JD.object2 Touch
-        ("clientX" := JD.float)
-        ("clientY" := JD.float)
+    map2 Touch
+        (field "clientX" float)
+        (field "clientY" float)
 
 
 {-| Lower level "touchmove" event handler
