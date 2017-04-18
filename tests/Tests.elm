@@ -11,7 +11,7 @@ touchEventsTests =
     ET.describe "Touch Event Test Suite"
         [ getXDirectionTest
         , getYDirectionTest
-        , emptyTouchText
+        , emptyTouchTest
         ]
 
 
@@ -41,7 +41,7 @@ getYDirectionTest =
                         (TE.getDirectionY n1 n2 == TE.Down)
 
 
-emptyTouchText =
+emptyTouchTest =
     ET.test "returns an empty Touch type"
         <| \() ->
             (Expect.true "Expected an empty touch to have x and y values of 0"
