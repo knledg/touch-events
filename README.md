@@ -15,4 +15,8 @@ Be sure to view in a mobile device emulator like the one found in Chrome Dev Too
 
 ## Run tests
 
-`elm-make tests/Main.elm && open index.html`
+1. Run `npm install -g elm-test` if you haven't already.
+2. `cd` into the project's root directory that has your `elm-package.json`.
+3. Run `elm-test init`. 
+4. Run `elm-test`.
+

@@ -1,3 +1,6 @@
 index.html
 elm-stuff
 documentation.json
+/tests/elm-stuff
+/tests/elm-package.json
+/tests/.gitignore
