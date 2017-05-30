@@ -1,5 +1,5 @@
 {
-    "version": "2.1.1",
+    "version": "2.1.2",
     "summary": "Touch event functions to help handle touch events",
     "repository": "https://github.com/knledg/touch-events.git",
     "license": "BSD3",
