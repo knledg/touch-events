@@ -2,7 +2,7 @@
 
 Library to help handle touch events
 
-## Documenation
+## Documentation
 
 [Package](http://package.elm-lang.org/packages/knledg/touch-events/latest)
 
