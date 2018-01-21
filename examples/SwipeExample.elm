@@ -1,14 +1,13 @@
 module SwipeExample exposing (..)
 
 import Html exposing (..)
-import Html.App as App
 import Html.Attributes exposing (style)
-import TouchEvents as TE
+import TouchEvents
 
 
-main : Program Never
+main : Program Never Model Msg
 main =
-    App.beginnerProgram
+    Html.beginnerProgram
         { model = init
         , view = view
         , update = update
@@ -16,21 +15,19 @@ main =
 
 
 type alias Model =
-    { touchPositionX : Maybe Float
-    , touchPositionY : Maybe Float
-    , direction : Maybe TE.Direction
+    { lastTouch : TouchEvents.Touch
+    , direction : Maybe TouchEvents.Direction
     }
 
 
 type Msg
-    = OnTouchStart TE.Touch
-    | OnTouchEnd TE.Touch
+    = OnTouchStart TouchEvents.Touch
+    | OnTouchEnd TouchEvents.Touch
 
 
 init : Model
 init =
-    { touchPositionX = Nothing
-    , touchPositionY = Nothing
+    { lastTouch = TouchEvents.Touch 0 0
     , direction = Nothing
     }
 
@@ -40,16 +37,14 @@ update msg model =
     case msg of
         OnTouchStart touchEvent ->
             { model
-                | touchPositionX = Just touchEvent.clientX
-                , touchPositionY = Just touchEvent.clientY
+                | lastTouch = touchEvent
             }
 
         OnTouchEnd touchEvent ->
             { model
-                | touchPositionX = Just touchEvent.clientX
-                , touchPositionY = Just touchEvent.clientY
+                | lastTouch = touchEvent
                 , direction =
-                    model.touchPositionX `Maybe.andThen` (\x -> Just <| TE.getDirectionX x touchEvent.clientX)
+                    TouchEvents.getDirection model.lastTouch touchEvent
             }
 
 
@@ -59,8 +54,8 @@ view model =
         []
         [ div
             [ style divStyle
-            , TE.onTouchEvent TE.TouchStart OnTouchStart
-            , TE.onTouchEvent TE.TouchEnd OnTouchEnd
+            , TouchEvents.onTouchEvent TouchEvents.TouchStart OnTouchStart
+            , TouchEvents.onTouchEvent TouchEvents.TouchEnd OnTouchEnd
             ]
             []
         , span [ style [ ( "display", "block" ) ] ] [ text <| toString model ]
