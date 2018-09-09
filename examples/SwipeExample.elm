@@ -1,4 +1,4 @@
-module SwipeExample exposing (..)
+module SwipeExample exposing (Model, Msg(..), divStyle, init, main, update, view)
 
 import Html exposing (..)
 import Html.App as App
@@ -63,7 +63,7 @@ view model =
             , TE.onTouchEvent TE.TouchEnd OnTouchEnd
             ]
             []
-        , span [ style [ ( "display", "block" ) ] ] [ text <| toString model ]
+        , span [ style "display" "block" ] [ text <| toString model ]
         ]
 
 
