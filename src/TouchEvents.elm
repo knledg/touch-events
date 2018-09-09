@@ -1,33 +1,31 @@
-module TouchEvents
-    exposing
-        ( TouchEvent(..)
-        , Direction(..)
-        , Touch
-        , emptyTouch
-        , getDirectionX
-        , getDirectionY
-        , onTouchEvent
-        , onTouchEnd
-        , onTouchStart
-        , onTouchMove
-        )
+module TouchEvents exposing
+    ( TouchEvent(..), Direction(..), Touch
+    , emptyTouch, getDirectionX, getDirectionY
+    , onTouchEvent, onTouchEnd, onTouchStart, onTouchMove
+    )
 
 {-| The is a library to provide touch event helpers
 
+
 # Types
+
 @docs TouchEvent, Direction, Touch
 
+
 # Helpers
+
 @docs emptyTouch, getDirectionX, getDirectionY
 
+
 # Event Handlers
+
 @docs onTouchEvent, onTouchEnd, onTouchStart, onTouchMove
 
 -}
 
-import Json.Decode as JD exposing (field, map2, float)
 import Html exposing (Attribute)
 import Html.Events exposing (on)
+import Json.Decode as JD exposing (field, float, map2)
 
 
 {-| Supported touch event types
@@ -70,6 +68,7 @@ getDirectionX : Float -> Float -> Direction
 getDirectionX start end =
     if start > end then
         Left
+
     else
         Right
 
@@ -80,6 +79,7 @@ getDirectionY : Float -> Float -> Direction
 getDirectionY start end =
     if start > end then
         Up
+
     else
         Down
 
@@ -89,16 +89,15 @@ getDirectionY start end =
 This takes a TouchEvent type and application `Msg` type.
 The `Msg` type should take a `TouchEvent.Touch` type.
 
-```
-type Msg
-  = UserSwipeStart TouchEvents.Touch
+    type Msg
+        = UserSwipeStart TouchEvents.Touch
 
-view model =
-  div
-    [ TouchEvents.onTouchEvent TouchEvents.TouchStart UserSwipeStart
-    ]
-    []
-```
+    view model =
+        div
+            [ TouchEvents.onTouchEvent TouchEvents.TouchStart UserSwipeStart
+            ]
+            []
+
 -}
 onTouchEvent : TouchEvent -> (Touch -> msg) -> Attribute msg
 onTouchEvent eventType msg =
@@ -118,16 +117,15 @@ onTouchEvent eventType msg =
 Takes the application `Msg` type which should take `TouchEvents.Touch`
 as a payload
 
-```
-type Msg
-  = UserSwipeEnd TouchEvents.Touch
+    type Msg
+        = UserSwipeEnd TouchEvents.Touch
 
-view model =
-  div
-    [ TouchEvents.onTouchEnd UserSwipeEnd
-    ]
-    []
-```
+    view model =
+        div
+            [ TouchEvents.onTouchEnd UserSwipeEnd
+            ]
+            []
+
 -}
 onTouchEnd : (Touch -> msg) -> Attribute msg
 onTouchEnd msg =
@@ -139,16 +137,15 @@ onTouchEnd msg =
 Takes the application `Msg` type which should take `TouchEvents.Touch`
 as a payload
 
-```
-type Msg
-  = UserSwipeStart TouchEvents.Touch
+    type Msg
+        = UserSwipeStart TouchEvents.Touch
 
-view model =
-  div
-    [ TouchEvents.onTouchStart UserSwipeStart
-    ]
-    []
-```
+    view model =
+        div
+            [ TouchEvents.onTouchStart UserSwipeStart
+            ]
+            []
+
 -}
 onTouchStart : (Touch -> msg) -> Attribute msg
 onTouchStart msg =
