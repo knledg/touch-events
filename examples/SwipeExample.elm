@@ -1,15 +1,15 @@
 module SwipeExample exposing (Model, Msg(..), divStyle, init, main, update, view)
 
+import Browser exposing (..)
 import Html exposing (..)
-import Html.App as App
 import Html.Attributes exposing (style)
 import TouchEvents as TE
 
 
-main : Program Never
+main : Program () Model Msg
 main =
-    App.beginnerProgram
-        { model = init
+    Browser.sandbox
+        { init = init
         , view = view
         , update = update
         }
