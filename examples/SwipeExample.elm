@@ -49,7 +49,7 @@ update msg model =
                 | touchPositionX = Just touchEvent.clientX
                 , touchPositionY = Just touchEvent.clientY
                 , direction =
-                    model.touchPositionX `Maybe.andThen` (\x -> Just <| TE.getDirectionX x touchEvent.clientX)
+                    model.touchPositionX |> Maybe.andThen (\x -> Just <| TE.getDirectionX x touchEvent.clientX)
             }
 
 
