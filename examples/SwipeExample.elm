@@ -63,7 +63,7 @@ view model =
             , TE.onTouchEvent TE.TouchEnd OnTouchEnd
             ]
             []
-        , span [ style "display" "block" ] [ text <| toString model ]
+        , span [ style "display" "block" ] [ text <| Debug.toString model ]
         ]
 
 
