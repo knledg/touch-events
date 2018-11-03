@@ -58,18 +58,19 @@ view model =
     div
         []
         [ div
-            [ style divStyle
-            , TE.onTouchEvent TE.TouchStart OnTouchStart
-            , TE.onTouchEvent TE.TouchEnd OnTouchEnd
-            ]
+            (divStyle
+                ++ [ TE.onTouchEvent TE.TouchStart OnTouchStart
+                   , TE.onTouchEvent TE.TouchEnd OnTouchEnd
+                   ]
+            )
             []
         , span [ style "display" "block" ] [ text <| Debug.toString model ]
         ]
 
 
-divStyle : List ( String, String )
+divStyle : List (Attribute Msg)
 divStyle =
-    [ ( "width", "100%" )
-    , ( "height", "400px" )
-    , ( "background-color", "blue" )
+    [ style "width" "100%"
+    , style "height" "400px"
+    , style "background-color" "blue"
     ]
