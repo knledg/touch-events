@@ -1,13 +1,19 @@
-port module Main exposing (..)
+port module Main exposing (main)
 
-import Tests
-import Test.Runner.Node as TRN
+import Console.Text exposing (UseColor(..))
 import Json.Encode as JE
-
-
-port emit : ( String, JE.Value ) -> Cmd msg
+import Test.Reporter.Reporter exposing (Report(..))
+import Test.Runner.Node as TRN
+import Tests
 
 
 main : TRN.TestProgram
 main =
-    TRN.run emit Tests.touchEventsTests
+    TRN.run
+        { seed = 1
+        , runs = Nothing
+        , report = ConsoleReport UseColor
+        , paths = []
+        , processes = 1
+        }
+        Tests.touchEventsTests

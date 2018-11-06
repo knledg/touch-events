@@ -1,15 +1,15 @@
-module SwipeExample exposing (..)
+module SwipeExample exposing (Model, Msg(..), divStyle, init, main, update, view)
 
+import Browser exposing (..)
 import Html exposing (..)
-import Html.App as App
 import Html.Attributes exposing (style)
 import TouchEvents as TE
 
 
-main : Program Never
+main : Program () Model Msg
 main =
-    App.beginnerProgram
-        { model = init
+    Browser.sandbox
+        { init = init
         , view = view
         , update = update
         }
@@ -49,7 +49,7 @@ update msg model =
                 | touchPositionX = Just touchEvent.clientX
                 , touchPositionY = Just touchEvent.clientY
                 , direction =
-                    model.touchPositionX `Maybe.andThen` (\x -> Just <| TE.getDirectionX x touchEvent.clientX)
+                    model.touchPositionX |> Maybe.andThen (\x -> Just <| TE.getDirectionX x touchEvent.clientX)
             }
 
 
@@ -58,18 +58,19 @@ view model =
     div
         []
         [ div
-            [ style divStyle
-            , TE.onTouchEvent TE.TouchStart OnTouchStart
-            , TE.onTouchEvent TE.TouchEnd OnTouchEnd
-            ]
+            (divStyle
+                ++ [ TE.onTouchEvent TE.TouchStart OnTouchStart
+                   , TE.onTouchEvent TE.TouchEnd OnTouchEnd
+                   ]
+            )
             []
-        , span [ style [ ( "display", "block" ) ] ] [ text <| toString model ]
+        , span [ style "display" "block" ] [ text <| Debug.toString model ]
         ]
 
 
-divStyle : List ( String, String )
+divStyle : List (Attribute Msg)
 divStyle =
-    [ ( "width", "100%" )
-    , ( "height", "400px" )
-    , ( "background-color", "blue" )
+    [ style "width" "100%"
+    , style "height" "400px"
+    , style "background-color" "blue"
     ]
